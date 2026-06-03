@@ -217,6 +217,20 @@ Authentication is handled using JWT tokens attached to all protected API request
 
 ---
 
+## Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_API_BASE_URL=https://admin-moderator-backend-staging.up.railway.app/api
+```
+
+Alternatively, copy the example file:
+
+```bash
+cp .env.example .env
+```
+
 ## Assessment Objective
 
 This project demonstrates proficiency in:
