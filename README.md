@@ -205,6 +205,18 @@ Authentication is handled using JWT tokens attached to all protected API request
 
 ---
 
+## Architecture
+
+- React 19
+- TypeScript
+- Redux Toolkit
+- React Query
+- React Hook Form
+- Zod Validation
+- Axios
+- Tailwind CSS
+- Vite Proxy for API routing
+
 ## Future Enhancements
 
 * Advanced search and filtering
@@ -230,6 +242,26 @@ Alternatively, copy the example file:
 ```bash
 cp .env.example .env
 ```
+
+## API Configuration
+
+The staging backend currently requires API requests to be routed through the Vite development proxy during local development.
+
+This avoids browser CORS restrictions when communicating with the staging environment.
+
+Configuration:
+
+```env
+VITE_API_BASE_URL=/api
+```
+
+Proxy configuration can be found in:
+
+```text
+vite.config.ts
+```
+
+No additional setup is required.
 
 ## Assessment Objective
 

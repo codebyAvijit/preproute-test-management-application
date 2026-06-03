@@ -1,17 +1,17 @@
-import api from "./axios";
+import api from "@/api/axios";
 
-export interface LoginPayload {
-  userId: string;
-  password: string;
-}
+import type {
+  LoginPayload,
+  LoginResponse,
+} from "@/types/auth.types";
 
 export const loginUser = async (
   payload: LoginPayload
-) => {
-  const response = await api.post(
+): Promise<LoginResponse> => {
+  const { data } = await api.post(
     "/auth/login",
     payload
   );
 
-  return response.data;
+  return data;
 };

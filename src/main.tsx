@@ -5,9 +5,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-
 import App from "./App";
 import { store } from "@/app/store";
+import { Toaster } from "react-hot-toast";
 
 import "./index.css";
 
@@ -20,6 +20,7 @@ ReactDOM.createRoot(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <App />
+         <Toaster position="top-right" />
       </QueryClientProvider>
     </Provider>
   </React.StrictMode>
