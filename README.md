@@ -276,3 +276,10 @@ This project demonstrates proficiency in:
 * Clean code and maintainability
 
 Built with a focus on scalability, maintainability, and production-grade frontend development practices.
+
+
+## API Notes
+
+The provided staging backend occasionally exhibits delayed responses and timeout behavior on certain endpoints. During development, a Vite proxy configuration was used to route API requests through `/api`.
+
+The authentication flow was successfully validated against the staging API, including JWT token retrieval, storage, and protected route access.

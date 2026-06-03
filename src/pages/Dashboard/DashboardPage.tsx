@@ -1,7 +1,15 @@
 const DashboardPage = () => {
   return (
-    <div className="p-6">
-      Dashboard
+    <div
+      className="
+      rounded-xl
+      border
+      border-slate-200
+      bg-white
+      p-6
+    "
+    >
+      Dashboard Page
     </div>
   );
 };
