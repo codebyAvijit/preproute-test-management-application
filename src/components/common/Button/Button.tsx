@@ -36,7 +36,7 @@ const Button = ({
             )}
             {...props}
         >
-            {isLoading ? "Loading..." : children}
+            {isLoading ? "Authenticating..." : children}
         </button>
     );
 };
