@@ -1,9 +1,9 @@
-const QuestionsPage = () => {
+const TestBasicInfo = () => {
   return (
     <div className="rounded-xl border bg-white p-6">
-      Questions Page
+      Test Basic Info
     </div>
   );
 };
 
-export default QuestionsPage;
+export default TestBasicInfo;

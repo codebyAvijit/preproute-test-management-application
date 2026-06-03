@@ -11,6 +11,9 @@ import DashboardPage from "@/pages/Dashboard/DashboardPage";
 import ProtectedRoute from "./ProtectedRoute";
 
 import DashboardLayout from "@/layouts/DashboardLayout";
+import CreateTestPage from "@/pages/CreateTest/CreateTestPage";
+import QuestionsPage from "@/pages/Questions/QuestionsPage";
+import PreviewPage from "@/pages/Preview/PreviewPage";
 
 const AppRoutes = () => {
   return (
@@ -49,25 +52,21 @@ const AppRoutes = () => {
             <Route
               path="/create-test"
               element={
-                <div>
-                  Create Test
-                </div>
+                <CreateTestPage/>
               }
             />
 
             <Route
               path="/questions"
               element={
-                <div>
-                  Questions
-                </div>
+                <QuestionsPage/>
               }
             />
 
             <Route
               path="/preview"
               element={
-                <div>Preview</div>
+               <PreviewPage/>
               }
             />
           </Route>
