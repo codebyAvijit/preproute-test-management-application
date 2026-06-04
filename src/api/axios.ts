@@ -2,6 +2,10 @@ import axios from "axios";
 
 import { STORAGE_KEYS } from "@/utils/constants";
 
+const USE_MOCK_API =
+  import.meta.env.VITE_USE_MOCK_API ===
+  "true";
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 
@@ -40,8 +44,13 @@ api.interceptors.response.use(
   (response) => response,
 
   (error) => {
+    /**
+     * Skip automatic logout while
+     * running in mock mode.
+     */
     if (
-      error.response?.status === 401
+      error.response?.status === 401 &&
+      !USE_MOCK_API
     ) {
       localStorage.removeItem(
         STORAGE_KEYS.TOKEN

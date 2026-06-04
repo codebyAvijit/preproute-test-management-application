@@ -3,18 +3,21 @@ import type { ButtonHTMLAttributes } from "react";
 
 type Variant = "primary" | "secondary" | "danger";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: Variant;
-    isLoading?: boolean;
+interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: Variant;
+  isLoading?: boolean;
+  loadingText?: string;
 }
 
 const Button = ({
-    children,
-    variant = "primary",
-    isLoading = false,
-    className,
-    disabled,
-    ...props
+  children,
+  variant = "primary",
+  isLoading = false,
+  loadingText,
+  className,
+  disabled,
+  ...props
 }: ButtonProps) => {
     return (
         <button
@@ -36,7 +39,11 @@ const Button = ({
             )}
             {...props}
         >
-            {isLoading ? "Authenticating..." : children}
+          {
+  isLoading
+    ? loadingText || "Loading..."
+    : children
+}
         </button>
     );
 };

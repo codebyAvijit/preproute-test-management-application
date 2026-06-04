@@ -17,13 +17,10 @@ import { loginUser } from "@/api/auth.api";
 
 import { loginSuccess } from "@/store/auth/authSlice";
 
-import {
-  loginSchema,
-  type LoginFormData,
-} from "@/schemas/login.schema";
+import { loginSchema, type LoginFormData } from "@/schemas/login.schema";
 
 const LoginForm = () => {
- const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -39,92 +36,57 @@ const LoginForm = () => {
     mutationFn: loginUser,
 
     onSuccess: (response) => {
-      dispatch(
-        loginSuccess(
-          response.data.token
-        )
-      );
+      dispatch(loginSuccess(response.data.token));
 
-      toast.success(
-        response.message ||
-          "Login successful"
-      );
+      toast.success(response.message || "Login successful");
 
       navigate("/dashboard");
     },
 
     onError: () => {
-      toast.error(
-        "Invalid credentials"
-      );
+      toast.error("Invalid credentials");
     },
   });
 
-  const onSubmit = (
-    data: LoginFormData
-  ) => {
+  const onSubmit = (data: LoginFormData) => {
     loginMutation.mutate(data);
   };
 
   return (
     <div className="w-full max-w-[640px]">
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10 lg:p-12">
-        <img
-          src={logo}
-          alt="Preproute"
-          className="mb-8 h-10 w-auto"
-        />
+        <img src={logo} alt="Preproute" className="mb-8 h-10 w-auto" />
 
-        <h1 className="mb-2 text-3xl font-semibold text-slate-800">
-          Login
-        </h1>
+        <h1 className="mb-2 text-3xl font-semibold text-slate-800">Login</h1>
 
         <p className="mb-10 text-sm text-slate-500">
           Use your company provided Login credentials
         </p>
 
-        <form
-          onSubmit={handleSubmit(
-            onSubmit
-          )}
-          className="space-y-6"
-        >
-          <FormField
-            label="User ID"
-            required
-          >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <FormField label="User ID" required>
             <Input
               placeholder="Enter User ID"
-              error={
-                errors.userId?.message
-              }
+              error={errors.userId?.message}
               {...register("userId")}
             />
           </FormField>
 
-          <FormField
-            label="Password"
-            required
-          >
+          <FormField label="Password" required>
             <Input
               type="password"
               placeholder="Enter Password"
-              error={
-                errors.password
-                  ?.message
-              }
-              {...register(
-                "password"
-              )}
+              error={errors.password?.message}
+              {...register("password")}
             />
           </FormField>
 
           <Button
             type="submit"
             className="w-full"
-            isLoading={
-              loginMutation.isPending
-            }
+            isLoading={loginMutation.isPending}
+            disabled={loginMutation.isPending}
+            loadingText="Authenticating..."
           >
             Login
           </Button>
