@@ -52,6 +52,10 @@ const LoginForm = () => {
     loginMutation.mutate(data);
   };
 
+  const handleForgotPassword = () => {
+    toast("Please contact your administrator for password reset.");
+  };
+
   return (
     <div className="w-full max-w-[640px]">
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10 lg:p-12">
@@ -81,6 +85,21 @@ const LoginForm = () => {
             />
           </FormField>
 
+          <button
+            type="button"
+            onClick={handleForgotPassword}
+            className="
+              text-sm
+              font-medium
+              text-indigo-600
+              transition-colors
+              hover:text-indigo-700
+              hover:underline
+            "
+          >
+            Forgot Password?
+          </button>
+    
           <Button
             type="submit"
             className="w-full"
