@@ -8,8 +8,46 @@ import ActionFooter from "./components/ActionFooter";
 import TestOverviewCard from "./components/TestOverviewCard";
 import QuestionEditorHeader from "./components/QuestionEditorHeader";
 import QuestionBuilderHeader from "./components/QuestionBuilderHeader";
+import { useEffect } from "react";
 
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/hooks/redux";
+
+import {
+  addQuestion,
+} from "@/store/questions/questionsSlice";
 const QuestionsPage = () => {
+  console.log("QuestionsPage mounted");
+  const dispatch =
+  useAppDispatch();
+
+const questions = useAppSelector(
+  (state) => state.questions.questions
+);
+
+useEffect(() => {
+  if (questions.length === 0) {
+    dispatch(
+      addQuestion({
+        id: crypto.randomUUID(),
+        question: "",
+        options: ["", "", "", ""],
+        correctAnswer: null,
+        solution: "",
+        difficulty: "",
+        topic: "",
+        subTopic: "",
+      })
+    );
+  }
+}, [dispatch, questions.length]);
+
+// useEffect(() => {
+//   console.log("Questions:", questions);
+// }, [questions]);
+
   return (
     <div className="space-y-6">
       <QuestionBuilderHeader />

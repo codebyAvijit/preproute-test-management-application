@@ -1,9 +1,33 @@
-const QuestionHeader = () => {
+import { useAppSelector } from "@/hooks/redux";
+
+const QuestionEditorHeader = () => {
+  const currentQuestionIndex =
+    useAppSelector(
+      (state) =>
+        state.questions
+          .currentQuestionIndex
+    );
+
+  const totalQuestions =
+    useAppSelector(
+      (state) =>
+        state.questions.questions
+          .length
+    );
+
+//     console.log(
+//   "Current Question Index:",
+//   currentQuestionIndex
+// );
+
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-xl font-semibold">
-          Question 1 / 50
+          Question{" "}
+          {currentQuestionIndex + 1}
+          {" / "}
+          {totalQuestions}
         </h2>
 
         <div className="flex gap-2">
@@ -24,4 +48,4 @@ const QuestionHeader = () => {
   );
 };
 
-export default QuestionHeader;
+export default QuestionEditorHeader;
