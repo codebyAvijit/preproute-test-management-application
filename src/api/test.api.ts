@@ -41,3 +41,31 @@ export const createTest =
 
     return data;
   };
+
+  export const getTests =
+  async () => {
+    if (USE_MOCK_API) {
+      return [
+        {
+          id: "1",
+          name: "Math Mock Test",
+          subject: "Mathematics",
+          status: "Draft",
+          total_questions: 50,
+        },
+
+        {
+          id: "2",
+          name: "Physics Test",
+          subject: "Physics",
+          status: "Published",
+          total_questions: 40,
+        },
+      ];
+    }
+
+    const { data } =
+      await api.get("/tests");
+
+    return data.data;
+  };

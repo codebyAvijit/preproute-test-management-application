@@ -1,42 +1,25 @@
 import type {
   FieldErrors,
-  UseFormRegister,
+  UseFormWatch,
+  UseFormSetValue,
 } from "react-hook-form";
 
-import {
-  FormField,
-  Input,
-  Select,
-} from "@/components/common";
+import { FormField, Radio } from "@/components/common";
 
-import type {
-  CreateTestFormData,
-} from "../schemas/createTest.schema";
+import type { CreateTestFormData } from "../schemas/createTest.schema";
 
 interface TestBasicInfoProps {
-  register: UseFormRegister<CreateTestFormData>;
   errors: FieldErrors<CreateTestFormData>;
+
+  watch: UseFormWatch<CreateTestFormData>;
+
+  setValue: UseFormSetValue<CreateTestFormData>;
 }
 
-const difficultyOptions = [
-  {
-    label: "Easy",
-    value: "easy",
-  },
-  {
-    label: "Medium",
-    value: "medium",
-  },
-  {
-    label: "Hard",
-    value: "hard",
-  },
-];
-
-
 const TestBasicInfo = ({
-  register,
   errors,
+  watch,
+  setValue,
 }: TestBasicInfoProps) => {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6">
@@ -45,52 +28,30 @@ const TestBasicInfo = ({
       </h2>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        <FormField
-          label="Test Name"
-          required
-        >
-          <Input
-            placeholder="Enter Test Name"
-            error={
-              errors.name?.message
-            }
-            {...register("name")}
-          />
-        </FormField>
+        <FormField label="Test Difficulty Level" required>
+          <div className="flex gap-10">
+            <Radio
+              label="Easy"
+              checked={watch("difficulty") === "easy"}
+              onChange={() => setValue("difficulty", "easy")}
+            />
 
-        
+            <Radio
+              label="Medium"
+              checked={watch("difficulty") === "medium"}
+              onChange={() => setValue("difficulty", "medium")}
+            />
 
-        <FormField
-          label="Difficulty"
-          required
-        >
-          <Select
-            options={
-              difficultyOptions
-            }
-            error={
-              errors.difficulty
-                ?.message
-            }
-            {...register(
-              "difficulty"
-            )}
-          />
-        </FormField>
+            <Radio
+              label="Difficult"
+              checked={watch("difficulty") === "hard"}
+              onChange={() => setValue("difficulty", "hard")}
+            />
+          </div>
 
-        <FormField
-          label="Total Time (Minutes)"
-          required
-        >
-          <Input
-            type="number"
-            placeholder="60"
-            error={
-              errors.totalTime
-                ?.message
-            }
-           {...register("totalTime")}
-          />
+          {errors.difficulty && (
+            <p className="text-sm text-red-500">{errors.difficulty.message}</p>
+          )}
         </FormField>
       </div>
     </div>
