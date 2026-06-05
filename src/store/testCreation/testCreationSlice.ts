@@ -18,25 +18,16 @@ const testCreationSlice = createSlice({
   initialState,
 
   reducers: {
-    saveTestDetails: (
-      state,
-      action: PayloadAction<CreateTestFormData>
-    ) => {
-      state.testDetails =
-        action.payload;
+    saveTestDetails: (state, action: PayloadAction<CreateTestFormData>) => {
+      state.testDetails = action.payload;
     },
 
-    clearTestDetails: (
-      state
-    ) => {
+    clearTestDetails: (state) => {
       state.testDetails = null;
     },
   },
 });
 
-export const {
-  saveTestDetails,
-  clearTestDetails,
-} = testCreationSlice.actions;
+export const { saveTestDetails, clearTestDetails } = testCreationSlice.actions;
 
 export default testCreationSlice.reducer;

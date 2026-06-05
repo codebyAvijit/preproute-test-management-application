@@ -19,10 +19,9 @@ import {
   addQuestion,
 } from "@/store/questions/questionsSlice";
 const QuestionsPage = () => {
-  console.log("QuestionsPage mounted");
   const dispatch =
   useAppDispatch();
-
+  
 const questions = useAppSelector(
   (state) => state.questions.questions
 );
@@ -44,9 +43,7 @@ useEffect(() => {
   }
 }, [dispatch, questions.length]);
 
-// useEffect(() => {
-//   console.log("Questions:", questions);
-// }, [questions]);
+
 
   return (
     <div className="space-y-6">

@@ -1,6 +1,16 @@
-import { useAppSelector } from "@/hooks/redux";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/hooks/redux";
+
+import {
+  clearCurrentQuestion,
+} from "@/store/questions/questionsSlice";
 
 const QuestionEditorHeader = () => {
+  const dispatch =
+    useAppDispatch();
+
   const currentQuestionIndex =
     useAppSelector(
       (state) =>
@@ -15,10 +25,12 @@ const QuestionEditorHeader = () => {
           .length
     );
 
-//     console.log(
-//   "Current Question Index:",
-//   currentQuestionIndex
-// );
+  const handleDeleteAllEdits =
+    () => {
+      dispatch(
+        clearCurrentQuestion()
+      );
+    };
 
   return (
     <div>
@@ -41,7 +53,12 @@ const QuestionEditorHeader = () => {
         </div>
       </div>
 
-      <button className="text-sm text-red-500">
+      <button
+        onClick={
+          handleDeleteAllEdits
+        }
+        className="text-sm text-red-500"
+      >
         Delete All Edits
       </button>
     </div>
