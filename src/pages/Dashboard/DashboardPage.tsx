@@ -84,7 +84,7 @@ const DashboardPage = () => {
           </thead>
 
           <tbody>
-            {tests.map((test) => (
+            {tests.map((test: any) => (
               <tr key={test.id} className="border-t border-slate-200">
                 <td className="px-6 py-4">{test.name}</td>
 
