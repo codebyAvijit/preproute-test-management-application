@@ -101,3 +101,34 @@ export const createTest =
 
     return data;
   };
+
+  export const publishTest =
+  async (
+    testId: string
+  ) => {
+    if (USE_MOCK_API) {
+      await new Promise(
+        (resolve) =>
+          setTimeout(
+            resolve,
+            1000
+          )
+      );
+
+      return {
+        success: true,
+        message:
+          "Test published successfully",
+      };
+    }
+
+    const { data } =
+      await api.put(
+        `/tests/${testId}`,
+        {
+          status: "live",
+        }
+      );
+
+    return data;
+  };

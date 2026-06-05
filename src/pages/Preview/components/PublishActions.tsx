@@ -16,6 +16,10 @@ import { createQuestionsBulk } from "@/api/test.api";
 
 import type { BulkQuestionPayload } from "@/types/test.types";
 
+import {
+  publishTest,
+} from "@/api/test.api";
+
 const PublishActions = () => {
   const navigate = useNavigate();
 
@@ -130,6 +134,15 @@ console.log(
 
 await createQuestionsBulk(
   questionsPayload
+);
+
+await publishTest(
+  testId
+);
+
+console.log(
+  "TEST PUBLISHED",
+  testId
 );
 
 toast.success(
