@@ -6,6 +6,8 @@ import { useTests } from "./hooks/useTests";
 
 import { toast } from "react-hot-toast";
 
+import type { Test } from "@/types/test.types";
+
 const DashboardPage = () => {
   const navigate = useNavigate();
 
@@ -84,7 +86,7 @@ const DashboardPage = () => {
           </thead>
 
           <tbody>
-            {tests.map((test: any) => (
+            {tests.map((test: Test) => (
               <tr key={test.id} className="border-t border-slate-200">
                 <td className="px-6 py-4">{test.name}</td>
 

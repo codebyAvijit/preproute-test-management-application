@@ -67,11 +67,9 @@ const PublishActions = () => {
         total_questions: Number(testDetails.totalQuestions),
       };
 
-      console.log("CREATE TEST PAYLOAD", payload);
 
       const response = await createTest(payload);
 
-      console.log("CREATE TEST RESPONSE", response);
 
       const testId =
   response.data.id;
@@ -127,10 +125,7 @@ const questionsPayload: BulkQuestionPayload[] =
     })
   );
 
-console.log(
-  "QUESTIONS PAYLOAD",
-  questionsPayload
-);
+
 
 await createQuestionsBulk(
   questionsPayload
@@ -140,10 +135,7 @@ await publishTest(
   testId
 );
 
-console.log(
-  "TEST PUBLISHED",
-  testId
-);
+
 
 toast.success(
   "Test published successfully"

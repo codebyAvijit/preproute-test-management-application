@@ -1,3 +1,11 @@
+export interface Test {
+  id: string;
+  name: string;
+  subject: string;
+  status?: string;
+  total_questions: number;
+}
+
 export interface CreateTestPayload {
   name: string;
 
