@@ -69,3 +69,35 @@ export const createTest =
 
     return data.data;
   };
+
+  export const createQuestionsBulk =
+  async (
+    questions: unknown[]
+  ) => {
+    if (USE_MOCK_API) {
+      await new Promise(
+        (resolve) =>
+          setTimeout(
+            resolve,
+            1000
+          )
+      );
+
+      return {
+        success: true,
+        message:
+          "Questions created successfully",
+        data: questions,
+      };
+    }
+
+    const { data } =
+      await api.post(
+        "/questions/bulk",
+        {
+          questions,
+        }
+      );
+
+    return data;
+  };

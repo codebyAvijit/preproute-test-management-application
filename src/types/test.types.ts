@@ -23,3 +23,28 @@ export interface CreateTestPayload {
 
   total_questions: number;
 }
+
+
+export interface BulkQuestionPayload {
+  type: string;
+
+  subject: string;
+
+  question: string;
+
+  option1: string;
+
+  option2: string;
+
+  option3: string;
+
+  option4: string;
+
+  correct_option: string;
+
+  explanation: string;
+
+  difficulty: string;
+
+  test_id: string;
+}

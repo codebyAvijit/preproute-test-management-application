@@ -1,154 +1,175 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 import Button from "@/components/common/Button/Button";
 
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import { createTest } from "@/api/test.api";
 
-import {
-  setTestId,
-} from "@/store/testCreation/testCreationSlice";
+import { setTestId } from "@/store/testCreation/testCreationSlice";
 
-import type {
-  CreateTestPayload,
-} from "@/types/test.types";
+import type { CreateTestPayload } from "@/types/test.types";
+
+import { createQuestionsBulk } from "@/api/test.api";
+
+import type { BulkQuestionPayload } from "@/types/test.types";
 
 const PublishActions = () => {
-  const navigate =
-    useNavigate();
+  const navigate = useNavigate();
 
-  const dispatch =
-    useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  const testDetails =
-    useAppSelector(
-      (state) =>
-        state.testCreation
-          .testDetails
-    );
+  const testDetails = useAppSelector((state) => state.testCreation.testDetails);
+
+  const questions = useAppSelector((state) => state.questions.questions);
 
   const handleCancel = () => {
     navigate("/questions");
   };
 
-  const handleConfirm =
-    async () => {
-      if (!testDetails) {
-        toast.error(
-          "Test details not found"
-        );
+  const handleConfirm = async () => {
+    if (!testDetails) {
+      toast.error("Test details not found");
 
-        return;
-      }
+      return;
+    }
 
-      try {
-        const payload: CreateTestPayload =
-          {
-            name:
-              testDetails.name,
+    try {
+      const payload: CreateTestPayload = {
+        name: testDetails.name,
 
-            type: "chapterwise",
+        type: "chapterwise",
 
-            subject:
-              testDetails.subject,
+        subject: testDetails.subject,
 
-            topics:
-              testDetails.topics,
+        topics: testDetails.topics,
 
-            sub_topics:
-              testDetails.subTopics,
+        sub_topics: testDetails.subTopics,
 
-            correct_marks:
-              Number(
-                testDetails.correctMarks
-              ),
+        correct_marks: Number(testDetails.correctMarks),
 
-            wrong_marks:
-              Number(
-                testDetails.wrongMarks
-              ),
+        wrong_marks: Number(testDetails.wrongMarks),
 
-            unattempt_marks:
-              Number(
-                testDetails.unattemptMarks
-              ),
+        unattempt_marks: Number(testDetails.unattemptMarks),
 
-            difficulty:
-              testDetails.difficulty,
+        difficulty: testDetails.difficulty,
 
-            total_time:
-              Number(
-                testDetails.totalTime
-              ),
+        total_time: Number(testDetails.totalTime),
 
-            total_marks:
-              Number(
-                testDetails.totalMarks
-              ),
+        total_marks: Number(testDetails.totalMarks),
 
-            total_questions:
-              Number(
-                testDetails.totalQuestions
-              ),
-          };
+        total_questions: Number(testDetails.totalQuestions),
+      };
 
-        console.log(
-          "CREATE TEST PAYLOAD",
-          payload
-        );
+      console.log("CREATE TEST PAYLOAD", payload);
 
-        const response =
-          await createTest(
-            payload
-          );
+      const response = await createTest(payload);
 
-        console.log(
-          "CREATE TEST RESPONSE",
-          response
-        );
+      console.log("CREATE TEST RESPONSE", response);
 
-        dispatch(
-          setTestId(
-            response.data.id
-          )
-        );
+      const testId =
+  response.data.id;
 
-        toast.success(
-          "Test created successfully"
-        );
+dispatch(
+  setTestId(testId)
+);
 
-        navigate("/success");
-      } catch (error) {
-        console.error(
-          "CREATE TEST ERROR",
-          error
-        );
+if (questions.length === 0) {
+  toast.error(
+    "No questions found"
+  );
 
-        toast.error(
-          "Failed to create test"
-        );
-      }
-    };
+  return;
+}
+
+const questionsPayload: BulkQuestionPayload[] =
+  questions.map(
+    (question) => ({
+      type: "mcq",
+
+      subject: testDetails.subject,
+
+      question:
+        question.question,
+
+      option1:
+        question.options[0],
+
+      option2:
+        question.options[1],
+
+      option3:
+        question.options[2],
+
+      option4:
+        question.options[3],
+
+      correct_option:
+        `option${
+          (question.correctAnswer ?? 0) +
+          1
+        }`,
+
+      explanation:
+        question.solution,
+
+      difficulty:
+        question.difficulty,
+
+      test_id:
+        testId,
+    })
+  );
+
+console.log(
+  "QUESTIONS PAYLOAD",
+  questionsPayload
+);
+
+await createQuestionsBulk(
+  questionsPayload
+);
+
+toast.success(
+  "Test published successfully"
+);
+
+navigate("/success");
+
+      
+    } catch (error: unknown) {
+  if (
+    axios.isAxiosError(error)
+  ) {
+    console.error(
+      "API RESPONSE",
+      error.response?.data
+    );
+
+    toast.error(
+      error.response?.data
+        ?.message ??
+        "Failed to publish test"
+    );
+
+    return;
+  }
+
+  toast.error(
+    "Failed to publish test"
+  );
+}
+  };
 
   return (
     <div className="flex justify-end gap-4">
-      <Button
-        variant="secondary"
-        onClick={handleCancel}
-      >
+      <Button variant="secondary" onClick={handleCancel}>
         Cancel
       </Button>
 
-      <Button
-        onClick={handleConfirm}
-      >
-        Confirm
-      </Button>
+      <Button onClick={handleConfirm}>Confirm</Button>
     </div>
   );
 };
