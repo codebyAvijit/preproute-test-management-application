@@ -35,8 +35,6 @@ const CreateTestWizard = () => {
 
   const savedTest = useAppSelector((state) => state.testCreation.testDetails);
 
-  
-
   const {
     register,
     watch,
@@ -75,9 +73,8 @@ const CreateTestWizard = () => {
   const { data: subTopics = [] } = useSubTopics(selectedTopics);
 
   const onNext = (values: CreateTestFormData) => {
-   
     dispatch(saveTestDetails(values));
-   
+
     toast.success("Test details saved");
 
     navigate("/questions");
@@ -124,12 +121,16 @@ const CreateTestWizard = () => {
               value: topic.id,
             }))}
             disabled={!selectedSubject}
+            value={watch("topics")[0] ?? ""}
             onChange={(e) => {
               setValue("topics", [e.target.value]);
 
               setValue("subTopics", []);
             }}
           />
+          {errors.topics && (
+            <p className="mt-1 text-sm text-red-500">{errors.topics.message}</p>
+          )}
         </FormField>
 
         <FormField label="Sub Topic">
@@ -140,8 +141,14 @@ const CreateTestWizard = () => {
               value: subTopic.id,
             }))}
             disabled={selectedTopics.length === 0}
+            value={watch("subTopics")[0] ?? ""}
             onChange={(e) => setValue("subTopics", [e.target.value])}
           />
+          {errors.subTopics && (
+            <p className="mt-1 text-sm text-red-500">
+              {errors.subTopics.message}
+            </p>
+          )}
         </FormField>
 
         <FormField label="Duration (Minutes)" required>

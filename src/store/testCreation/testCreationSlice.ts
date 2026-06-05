@@ -6,10 +6,14 @@ import type { CreateTestFormData } from "@/pages/CreateTest/schemas/createTest.s
 
 interface TestCreationState {
   testDetails: CreateTestFormData | null;
+
+  testId: string | null;
 }
 
 const initialState: TestCreationState = {
   testDetails: null,
+
+  testId: null,
 };
 
 const testCreationSlice = createSlice({
@@ -22,12 +26,18 @@ const testCreationSlice = createSlice({
       state.testDetails = action.payload;
     },
 
+    setTestId: (state, action: PayloadAction<string>) => {
+      state.testId = action.payload;
+    },
     clearTestDetails: (state) => {
       state.testDetails = null;
+
+      state.testId = null;
     },
   },
 });
 
-export const { saveTestDetails, clearTestDetails } = testCreationSlice.actions;
+export const { saveTestDetails,  clearTestDetails, setTestId } =
+  testCreationSlice.actions;
 
 export default testCreationSlice.reducer;
