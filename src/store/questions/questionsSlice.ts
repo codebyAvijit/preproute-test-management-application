@@ -102,6 +102,10 @@ const questionsSlice = createSlice({
     subTopic: "",
   };
 },
+clearQuestions: (state) => {
+  state.questions = [];
+  state.currentQuestionIndex = 0;
+},
   },
 });
 
@@ -111,6 +115,7 @@ export const {
   createNewQuestion,
   updateQuestion,
   clearCurrentQuestion,
+  clearQuestions,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

@@ -2,14 +2,22 @@ import { Pencil } from "lucide-react";
 
 import { useAppSelector } from "@/hooks/redux";
 
+import { useNavigate } from "react-router-dom";
+
 const ConfirmationSummaryCard = () => {
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate("/create-test");
+  };
+
   const testDetails = useAppSelector((state) => state.testCreation.testDetails);
 
   if (!testDetails) return null;
 
   return (
     <div className="relative rounded-xl border border-slate-200 bg-white p-6">
-      <button className="absolute right-6 top-6">
+      <button onClick={handleEdit} className="absolute right-6 top-6">
         <Pencil size={18} />
       </button>
 
