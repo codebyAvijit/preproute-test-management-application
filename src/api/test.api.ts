@@ -132,3 +132,30 @@ export const createTest =
 
     return data;
   };
+
+  export const getTestById = async (
+  testId: string
+) => {
+  const { data } =
+    await api.get(
+      `/tests/${testId}`
+    );
+
+  return data.data;
+};
+
+export const fetchBulkQuestions =
+  async (
+    questionIds: string[]
+  ) => {
+    const { data } =
+      await api.post(
+        "/questions/fetchBulk",
+        {
+          question_ids:
+            questionIds,
+        }
+      );
+
+    return data.data;
+  };
