@@ -11,7 +11,7 @@ const PreviewPage = () => {
     <div className="space-y-6">
       <ConfirmationHeader />
 
-      <div className="grid gap-6 grid-cols-[260px_1fr]">
+     <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
         <ConfirmationSidebar />
 
         <div className="space-y-6">

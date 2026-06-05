@@ -169,7 +169,7 @@ navigate("/success");
   };
 
   return (
-    <div className="flex justify-end gap-4">
+   <div className="flex flex-col gap-4 sm:flex-row sm:justify-end">
       <Button variant="secondary" onClick={handleCancel}>
         Cancel
       </Button>

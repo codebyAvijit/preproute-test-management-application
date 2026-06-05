@@ -20,7 +20,7 @@ const DashboardPage = () => {
   if (tests.length === 0) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-semibold">Test Dashboard</h1>
 
@@ -59,8 +59,8 @@ const DashboardPage = () => {
         <Button onClick={() => navigate("/create-test")}>Create Test</Button>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-        <table className="w-full">
+      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+       <table className="min-w-[900px] w-full">
           <thead className="bg-slate-50">
             <tr>
               <th className="px-6 py-4 text-left text-sm font-medium text-slate-600">
@@ -107,7 +107,7 @@ const DashboardPage = () => {
                 <td className="px-6 py-4">{test.total_questions}</td>
 
                 <td className="px-6 py-4">
-                  <div className="flex gap-2">
+                 <div className="flex flex-col gap-2 lg:flex-row">
                     <Button
                       variant="secondary"
                       onClick={() => navigate(`/create-test?testId=${test.id}`)}

@@ -21,7 +21,7 @@ const SuccessPage = () => {
           Your test is now ready and available for students.
         </p>
 
-        <div className="flex justify-center gap-4">
+       <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Button
             variant="secondary"
             onClick={() =>
