@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-import { Button, FormField, Input, Select } from "@/components/common";
+import { Button, FormField, Input, Select,Skeleton } from "@/components/common";
 
 import {
   createTestSchema,
@@ -18,6 +18,8 @@ import { useTopics } from "../hooks/api/useTopics";
 import { useSubTopics } from "../hooks/api/useSubTopics";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+
+
 
 import {
   saveTestDetails,
@@ -66,7 +68,10 @@ const CreateTestWizard = () => {
 
   const selectedTopics = watch("topics");
 
-  const { data: subjects = [] } = useSubjects();
+  const {
+  data: subjects = [],
+  isLoading: subjectsLoading,
+} = useSubjects();
 
   const { data: topics = [] } = useTopics(selectedSubject);
 
@@ -87,7 +92,31 @@ const CreateTestWizard = () => {
 
     navigate("/dashboard");
   };
+if (subjectsLoading) {
+  return (
+    <div className="space-y-8">
+      <Skeleton className="h-10 w-80" />
 
+      <div className="grid gap-8 md:grid-cols-2">
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+      </div>
+
+      <Skeleton className="h-40 w-full" />
+
+      <div className="flex justify-end gap-4">
+        <Skeleton className="h-10 w-24" />
+        <Skeleton className="h-10 w-24" />
+      </div>
+    </div>
+  );
+}
   return (
     <form onSubmit={handleSubmit(onNext)} className="space-y-8" noValidate>
       <TestTypeTabs />

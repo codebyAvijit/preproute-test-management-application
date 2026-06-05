@@ -7,15 +7,37 @@ import { useTests } from "./hooks/useTests";
 import { toast } from "react-hot-toast";
 
 import type { Test } from "@/types/test.types";
+import Skeleton  from "@/components/common/Skeleton/Skeleton";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
 
   const { data: tests = [], isLoading } = useTests();
 
-  if (isLoading) {
-    return <div className="p-6">Loading tests...</div>;
-  }
+
+if (isLoading) {
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between">
+        <div className="space-y-2">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+
+        <Skeleton className="h-10 w-32" />
+      </div>
+
+      <div className="rounded-xl border border-slate-200 bg-white p-4">
+        {[...Array(6)].map((_, index) => (
+          <Skeleton
+            key={index}
+            className="mb-3 h-14 w-full"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
   if (tests.length === 0) {
     return (
